@@ -11,7 +11,7 @@ permalink: /certs/
 <div class="post-list">
   {% for post in posts %}
   <article class="post-preview">
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
     <p class="post-meta">{{ post.date | date: "%b %d, %Y" }}</p>
     {% if post.description %}<p>{{ post.description }}</p>{% endif %}
   </article>
