@@ -1,9 +1,7 @@
 ---
 layout: page
-title: Certs
 icon: fas fa-certificate
 order: 7
-permalink: /certs/
 ---
 
 {% assign posts = site.posts | where_exp: "post", "post.tags contains 'certification'" %}

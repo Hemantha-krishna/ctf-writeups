@@ -1,9 +1,7 @@
 ---
 layout: page
-title: HackTheBox
 icon: fas fa-box-open
 order: 6
-permalink: /hackthebox/
 ---
 
 {% assign posts = site.posts | where_exp: "post", "post.tags contains 'hackthebox'" %}
