@@ -8,7 +8,7 @@ image:
   alt: TCM Security PNPT Certified Badge
 ---
 
-![PNPT Certified Badge](/assets/img/posts/pnpt-badge.png){: width="200" .left}
+![PNPT Certified Badge](/assets/images/posts/pnpt-badge.png){: width="200" .left}
 
 After grinding through the courses, learning from a failed first attempt at the PJPT, and spending several intense days inside the exam environment, I can finally say I'm a certified **Practical Network Penetration Tester (PNPT)**. Here's my honest breakdown of the experience — the mistakes, the wins, and every tip that would have saved me time.
 
