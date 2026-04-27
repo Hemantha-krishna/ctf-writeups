@@ -4,7 +4,7 @@ date: 2026-04-27 00:00:00 +0000
 categories: [Certifications, Penetration Testing]
 tags: [pnpt, tcm-security, penetration-testing, certification, review, exam]
 image:
-  path: /assets/img/posts/pnpt-badge.png
+  path: /assets/images/posts/pnpt-badge.png
   alt: TCM Security PNPT Certified Badge
 ---
 
