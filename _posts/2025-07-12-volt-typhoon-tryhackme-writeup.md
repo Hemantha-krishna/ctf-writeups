@@ -8,16 +8,16 @@ tags:
   - writeup
 description: "Investigate a suspected intrusion by the notorious APT group Volt Typhoon."
 canonical_url: "https://medium.com/@hemanthakrishnach/volt-typhoon-61dc13664cad"
-image: "/assets/images/posts/volt-typhoon-tryhackme-writeup/img-000-83c82a5c.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-000-83c82a5c.png"
 ---
 
 Investigate a suspected intrusion by the notorious APT group Volt Typhoon.
 
 ---
 
-Investigate a suspected intrusion by the notorious APT group Volt Typhoon.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-000-83c82a5c.png)
+Investigate a suspected intrusion by the notorious APT group Volt Typhoon.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-000-83c82a5c.png)
 
-Room: <https://tryhackme.com/room/volttyphoon>![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-001-5a95a285.png)
+Room: <https://tryhackme.com/room/volttyphoon>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-001-5a95a285.png)
 
 ### **Scenario**
 
@@ -38,7 +38,7 @@ A simple Splunk search gets us started:
 dean password
 ```
 
-The logs quickly reveal a critical event. An attacker successfully reset Dean’s password, effectively hijacking the account.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-002-2d0a664c.png)
+The logs quickly reveal a critical event. An attacker successfully reset Dean’s password, effectively hijacking the account.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-002-2d0a664c.png)
 
 ### Q2. Shortly after Dean’s account was compromised, the attacker created a new administrator account. What is the name of the new account that was created?
 
@@ -48,7 +48,7 @@ I searched for *admin* and found two usernames in the username filter. One is th
 ```typescript
 admin
 ```
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-003-4276664e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-003-4276664e.png)
 
 ### Task 2:Execution
 
@@ -68,7 +68,7 @@ To not miss any events, I updated the search to
 *server01*server02*
 ```
 
-I still got one event![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-004-b1edbf4d.png)
+I still got one event![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-004-b1edbf4d.png)
 
 ### Q4. The attacker uses ntdsutil to create a copy of the AD database. After moving the file to a web server, the attacker compresses the database. What password does the attacker set on the archive?
 
@@ -79,9 +79,9 @@ I searched for 7z as it is one of the common compressed file’s extension. This
 wmic /node:webserver-01 process call create “cmd.exe /c 7z a -v100m -p d5ag0nm@5t3r -t7z cisco-up.7z C:\inetpub\wwwroot\temp.dit”
 ```
 
-We can get the password from after the -p parameter.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-005-c857afa7.png)
+We can get the password from after the -p parameter.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-005-c857afa7.png)
 
-Another way to solve this is by searching for *ntdsutil* leads us to the creation of *temp.dit.* Pivoting our search to this filename or the 7z compression utility reveals the command used to create the archive.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-006-10463c92.png)![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-007-5790d42c.png)
+Another way to solve this is by searching for *ntdsutil* leads us to the creation of *temp.dit.* Pivoting our search to this filename or the 7z compression utility reveals the command used to create the archive.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-006-10463c92.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-007-5790d42c.png)
 
 ### Persistence
 
@@ -89,7 +89,7 @@ Given Info: “Our target APT frequently employs web shells as a persistence mec
 
 ### Q5. To establish persistence on the compromised server, the attacker created a web shell using base64 encoded text. In which directory was the web shell placed?
 
-Volt Typhoon uses Base64 encoding to obfuscate their web shell payload. We can hunt for PowerShell or certutil commands that decode Base64 strings. A search for certutil -decode yields a direct hit. The command line shows exactly where the decoded file (the web shell) was saved.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-008-a13b4824.png)
+Volt Typhoon uses Base64 encoding to obfuscate their web shell payload. We can hunt for PowerShell or certutil commands that decode Base64 strings. A search for certutil -decode yields a direct hit. The command line shows exactly where the decoded file (the web shell) was saved.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-008-a13b4824.png)
 
 ### Defense Evasion
 
@@ -99,7 +99,7 @@ Given Info: “Volt Typhoon utilizes advanced defense evasion techniques to sign
 
 To erase evidence of their remote connections, the attacker targets the registry where RDP history is stored. In PowerShell, the cmdlet used to **remove a registry entry** is: *Remove-ItemProperty*.
 
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-009-08ece47e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-009-08ece47e.png)
 
 Command:
 ```bash
@@ -112,7 +112,7 @@ Remove-ItemProperty -Path $registryPath -Name MRU0 -ErrorAction SilentlyContinue
 
 ### Q7. The APT continues to cover their tracks by renaming and changing the extension of the previously created archive. What is the file name (with extension) created by the attackers?
 
-.7z file containing an AD database is highly suspicious. To hide it in plain sight, the attacker renames it to something that looks benign, like an image file. Earlier, we got 2 events when we searched for the archive file.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-010-ad7fc72c.png)
+.7z file containing an AD database is highly suspicious. To hide it in plain sight, the attacker renames it to something that looks benign, like an image file. Earlier, we got 2 events when we searched for the archive file.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-010-ad7fc72c.png)
 
 The first command:
 ```r
@@ -125,14 +125,14 @@ It **remotely renames a file** on another computer (`webserver-01`) by using `WM
 
 Attackers often check if they are operating within a virtual machine or sandbox, as this could indicate an analysis environment. They do this by querying specific registry keys. A search for Get-ItemProperty combined with terms like virtual points us to the exact path they checked.
 
-**Top-Level Registry Hives:**![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-011-8aa02763.png)
+**Top-Level Registry Hives:**![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-011-8aa02763.png)
 
 When I searched for HKEY\_LOCAL\_MACHINE, I got 3 hits. One of them is the attacker checking for virtual environment. We can get the path from the command.
 ```vbnet
 Get-ItemProperty -Path “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control” | Select Object -Property *Virtual*
 ```
 
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-012-77911e8d.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-012-77911e8d.png)
 
 ### Credential Access
 
@@ -142,13 +142,13 @@ Given Info: “Volt Typhoon often combs through target networks to uncover and e
 
 Saved credentials in common remote access and SSH tools are a goldmine. A reg query search shows the attacker systematically hunting for credentials associated with popular software. We can find the name of the software from the command line. Softwares investigated: OpenSSH, putty, realvnc
 
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-013-b7c8df73.png)![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-014-1e9454df.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-013-b7c8df73.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-014-1e9454df.png)
 
 ### Q10. What is the full decoded command the attacker uses to download and run mimikatz?
 
-Mimikatz is a powerful tool for dumping credentials from memory. It’s generally obfuscated. We can find it by looking for encoded PowerShell commands (-e or -enc). After finding the Base64 string, we can decode it using a tool like CyberChef.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-015-be493c86.png)
+Mimikatz is a powerful tool for dumping credentials from memory. It’s generally obfuscated. We can find it by looking for encoded PowerShell commands (-e or -enc). After finding the Base64 string, we can decode it using a tool like CyberChef.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-015-be493c86.png)
 
-Decoding the command using Cyberchef — <https://gchq.github.io/CyberChef/>![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-016-506a867b.png)
+Decoding the command using Cyberchef — <https://gchq.github.io/CyberChef/>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-016-506a867b.png)
 
 ### Discovery
 
@@ -160,7 +160,7 @@ Given Info: “The APT has been observed moving previously created web shells to
 
 ### Q11. The attacker uses wevtutil, a log retrieval tool, to enumerate Windows logs. What event IDs does the attacker search for? Answer Format: Increasing order separated by a space.
 
-To understand login patterns, the attacker queries the Windows Event Logs for specific event IDs related to successful logons. A search for *wevtutil* reveals which IDs they were interested in.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-017-dc86a6ec.png)
+To understand login patterns, the attacker queries the Windows Event Logs for specific event IDs related to successful logons. A search for *wevtutil* reveals which IDs they were interested in.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-017-dc86a6ec.png)
 
 ### Q12. Moving laterally to server-02, the attacker copies over the original web shell. What is the name of the new web shell that was created?
 
@@ -170,7 +170,7 @@ Searching for *server-02* and got 500+ results, to narrow it down, I added *copy
 ```go
 server-02 copy
 ```
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-018-37c959ec.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-018-37c959ec.png)
 
 This command copies a file from a local path to a remote server’s web directory over the network.
 
@@ -187,7 +187,7 @@ I Searched for *\*finance\** and got 4 events. We can get the file name and its 
 *finance*
 ```
 
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-019-533df176.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-019-533df176.png)
 
 ### C2
 
@@ -204,11 +204,11 @@ To exfiltrate data and maintain C2, the attacker sets up a network proxy using t
 netsh
 ```
 
-![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-020-b44bd2a0.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-020-b44bd2a0.png)
 
 ### To conceal their activities, what are the four types of event logs the attacker clears on the compromised system?
 
-The final, and perhaps loudest, act is to erase the evidence. We already saw that wevtutil was used to access the windows event log. Later, The attacker uses *wevtutil* with the *cl (clear-log)* argument to wipe the very logs we’ve been analyzing. The command explicitly lists the log types they cleared.![image](/assets/images/posts/volt-typhoon-tryhackme-writeup/img-021-1bab6f2e.png)
+The final, and perhaps loudest, act is to erase the evidence. We already saw that wevtutil was used to access the windows event log. Later, The attacker uses *wevtutil* with the *cl (clear-log)* argument to wipe the very logs we’ve been analyzing. The command explicitly lists the log types they cleared.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/volt-typhoon-tryhackme-writeup/img-021-1bab6f2e.png)
 ```sql
 wevtutil cl Application Security Setup System
 ```

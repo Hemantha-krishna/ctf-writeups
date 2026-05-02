@@ -7,7 +7,7 @@ tags:
   - tryhackme
 description: "A w1se guy 0nce said, the answer is usually as plain as day."
 canonical_url: "https://medium.com/@hemanthakrishnach/w1seguy-tryhackme-24783da0e5bc"
-image: "/assets/images/posts/w1seguy-tryhackme/img-000-dbb30c60.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-000-dbb30c60.png"
 ---
 
 A w1se guy 0nce said, the answer is usually as plain as day.
@@ -18,11 +18,11 @@ A w1se guy 0nce said, the answer is usually as plain as day.
 
 A w1se guy 0nce said, the answer is usually as plain as day.
 
-Room: <https://tryhackme.com/room/w1seguy>![image](/assets/images/posts/w1seguy-tryhackme/img-000-dbb30c60.png)![image](/assets/images/posts/w1seguy-tryhackme/img-001-ef8d8858.png)
+Room: <https://tryhackme.com/room/w1seguy>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-000-dbb30c60.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-001-ef8d8858.png)
 
 ### Task 1: Source Code
 
-![image](/assets/images/posts/w1seguy-tryhackme/img-002-fde904ba.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-002-fde904ba.png)
 
 ### 📜 Provided Source Code
 
@@ -44,7 +44,7 @@ We’ll use [CyberChef](https://gchq.github.io/CyberChef/) to reverse-engineer t
 
 ### Task 2: Get those flags!
 
-![image](/assets/images/posts/w1seguy-tryhackme/img-003-150c8521.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-003-150c8521.png)
 
 ### 🧩 Key Recovery Steps
 
@@ -52,18 +52,18 @@ We’ll use [CyberChef](https://gchq.github.io/CyberChef/) to reverse-engineer t
 
 - First, **“From Hex,”** the provided XOR-encoded string.- Then, **XOR with the known text** `THM{` to recover the start of the key.- Example: `rb9b`
 
-![image](/assets/images/posts/w1seguy-tryhackme/img-004-a05fd867.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-004-a05fd867.jpg)
 
-2. For the final character, XOR the last byte with `}` to get the fifth key character.![image](/assets/images/posts/w1seguy-tryhackme/img-005-d767b424.jpg)
+2. For the final character, XOR the last byte with `}` to get the fifth key character.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-005-d767b424.jpg)
 
 ### 🏁 Flag Retrieval
 
 - Once the 5-character key is reconstructed:- Use CyberChef to decrypt the XORed fake flag.
 
-![image](/assets/images/posts/w1seguy-tryhackme/img-006-0667984d.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-006-0667984d.jpg)
 
 - Submit the correct key in the prompt to receive **Flag 2**.
 
-![image](/assets/images/posts/w1seguy-tryhackme/img-007-2aca362f.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/w1seguy-tryhackme/img-007-2aca362f.jpg)
 
 ### Thank you for reading my write-up. I hope you found it useful.

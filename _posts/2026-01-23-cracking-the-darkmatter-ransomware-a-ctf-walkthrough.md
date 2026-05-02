@@ -8,22 +8,22 @@ tags:
   - ctf
 description: "In the world of cybersecurity Capture The Flags (CTFs), few things are as satisfying as turning a hacker’s own cryptography against them…"
 canonical_url: "https://medium.com/@hemanthakrishnach/cracking-the-darkmatter-ransomware-a-ctf-walkthrough-bd731bb74f57"
-image: "/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-000-755a7838.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-000-755a7838.png"
 ---
 
 In the world of cybersecurity Capture The Flags (CTFs), few things are as satisfying as turning a hacker’s own cryptography against them…
 
 ---
 
-In the world of cybersecurity Capture The Flags (CTFs), few things are as satisfying as turning a hacker’s own cryptography against them. In this walkthrough, we’ll tackle a scenario involving the “DarkMatter Gang” ransomware. We will analyze the encryption artifacts, exploit weak RSA keys, and recover our data without paying a single coin.![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-000-755a7838.png)
+In the world of cybersecurity Capture The Flags (CTFs), few things are as satisfying as turning a hacker’s own cryptography against them. In this walkthrough, we’ll tackle a scenario involving the “DarkMatter Gang” ransomware. We will analyze the encryption artifacts, exploit weak RSA keys, and recover our data without paying a single coin.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-000-755a7838.png)
 
 Room link: <https://tryhackme.com/room/hfb1darkmatter>
 
-![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-001-a78861d2.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-001-a78861d2.png)
 
 ### Phase 1: The Incident
 
-The scenario begins with a compromised machine. Upon accessing the system, we are greeted with a chilling ransom note:![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-002-daba25ca.png)
+The scenario begins with a compromised machine. Upon accessing the system, we are greeted with a chilling ransom note:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-002-daba25ca.png)
 
 The attackers demand a payment of **0.5 BTC** to a specific wallet address to prevent permanent data loss.
 
@@ -39,7 +39,7 @@ To defeat the encryption, we first need to understand the keys. We display the c
 ```ini
 n=340282366920938460843936948965011886881e=65537
 ```
-![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-003-04154012.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-003-04154012.png)
 
 Here we see the standard RSA public key components: the modulus (n) and the public exponent (e).
 
@@ -55,7 +55,7 @@ Since the provided modulus n is relatively small, we check [**FactorDB**](https:
 
 - **p:** 18446744073709551533- **q:** 18446744073709551557
 
-![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-004-2aa72cfc.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-004-2aa72cfc.png)
 
 #### 2. Calculating the Private Key
 
@@ -67,17 +67,17 @@ We input the following values into the RSA Decoder:
 
 The tool computes the private key (d):
 
-`196442361873243903843228745541797845217`![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-005-9bce82de.png)
+`196442361873243903843228745541797845217`![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-005-9bce82de.png)
 
 ### Phase 4: Decryption and Recovery
 
-Now that we have the private key, we return to the ransomware interface and paste the calculated d value (`19644...`) into the prompt.![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-006-46f01dc2.png)
+Now that we have the private key, we return to the ransomware interface and paste the calculated d value (`19644...`) into the prompt.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-006-46f01dc2.png)
 
 #### The Loot
 
 With the file system unlocked, we can inspect the sensitive data the attackers tried to hold hostage. We open `student_grades.docx`.
 
-Among these entries, we locate the string “THM,” confirming we have successfully retrieved the CTF flag.![image](/assets/images/posts/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-007-dccb8cdf.png)
+Among these entries, we locate the string “THM,” confirming we have successfully retrieved the CTF flag.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-the-darkmatter-ransomware-a-ctf-walkthrough/img-007-dccb8cdf.png)
 
 ### Conclusion
 

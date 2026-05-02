@@ -8,7 +8,7 @@ tags:
   - writeup
 description: "Check out our new cloud service, Authentication Anywhere. Can you find other user’s secrets?"
 canonical_url: "https://medium.com/@hemanthakrishnach/neighbour-tryhackme-writeup-36abc0bb8816"
-image: "/assets/images/posts/neighbour-tryhackme-writeup/img-000-2ca5521e.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-000-2ca5521e.png"
 ---
 
 Check out our new cloud service, Authentication Anywhere. Can you find other user’s secrets?
@@ -17,7 +17,7 @@ Check out our new cloud service, Authentication Anywhere. Can you find other use
 
 Check out our new cloud service, Authentication Anywhere. Can you find other user’s secrets?
 
-Room: <https://tryhackme.com/room/neighbour>![image](/assets/images/posts/neighbour-tryhackme-writeup/img-000-2ca5521e.png)![image](/assets/images/posts/neighbour-tryhackme-writeup/img-001-6d2a97af.png)
+Room: <https://tryhackme.com/room/neighbour>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-000-2ca5521e.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-001-6d2a97af.png)
 
 ### Scenario
 
@@ -25,9 +25,9 @@ Check out our new cloud service, Authentication Anywhere — log in from any
 
 ### Initial Access
 
-Navigate to the **Target Machine IP** from the **AttackBox**.![image](/assets/images/posts/neighbour-tryhackme-writeup/img-002-fd6002e7.jpg)
+Navigate to the **Target Machine IP** from the **AttackBox**.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-002-fd6002e7.jpg)
 
-On the homepage, view the page source.![image](/assets/images/posts/neighbour-tryhackme-writeup/img-003-ceb945ab.jpg)
+On the homepage, view the page source.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-003-ceb945ab.jpg)
 
 There’s an interesting HTML comment:
 ```vbnet
@@ -40,9 +40,9 @@ Username: guest Password: guest
 
 ### Exploring the Application
 
-![image](/assets/images/posts/neighbour-tryhackme-writeup/img-004-be714ed6.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-004-be714ed6.jpg)
 
-After logging in as the guest user, examine the page source again.![image](/assets/images/posts/neighbour-tryhackme-writeup/img-005-287c3dc1.jpg)
+After logging in as the guest user, examine the page source again.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-005-287c3dc1.jpg)
 
 Another comment is present: <! — admin account could be vulnerable, need to update →
 
@@ -59,7 +59,7 @@ We can try changing the `user` parameter from `guest` to `admin`:
 ```bash
 http://MACHINE_IP/profile.php?user=admin
 ```
-![image](/assets/images/posts/neighbour-tryhackme-writeup/img-006-750d403f.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/neighbour-tryhackme-writeup/img-006-750d403f.jpg)
 
 ### 🎉 Flag found!
 

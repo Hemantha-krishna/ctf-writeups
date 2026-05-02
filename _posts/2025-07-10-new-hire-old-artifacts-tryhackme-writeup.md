@@ -8,16 +8,16 @@ tags:
   - writeup
 description: "Investigate the intrusion attack using Splunk."
 canonical_url: "https://medium.com/@hemanthakrishnach/new-hire-old-artifacts-tryhackme-writeup-fef1610d1c08"
-image: "/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-000-168ef684.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-000-168ef684.png"
 ---
 
 Investigate the intrusion attack using Splunk.
 
 ---
 
-Investigate the intrusion attack using Splunk.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-000-168ef684.png)
+Investigate the intrusion attack using Splunk.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-000-168ef684.png)
 
-Room: <https://tryhackme.com/room/newhireoldartifacts>![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-001-6893ce6a.png)
+Room: <https://tryhackme.com/room/newhireoldartifacts>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-001-6893ce6a.png)
 
 ### **Scenario**
 
@@ -40,11 +40,11 @@ An attacker’s first move after gaining access is often credential theft. A com
 password viewer
 ```
 
-This query returned 27 events. In the event details, the *ImageLoaded* field reveals the full path of the executed process.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-002-296da46d.png)
+This query returned 27 events. In the event details, the *ImageLoaded* field reveals the full path of the executed process.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-002-296da46d.png)
 
 ### What is listed as the company name?
 
-The Company field gives us the answer directly.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-003-0691c350.png)
+The Company field gives us the answer directly.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-003-0691c350.png)
 
 ### Another suspicious binary running from the same folder was executed on the workstation. What was the name of the binary? What is listed as its original filename? (**format: file.xyz,file.xyz**)
 
@@ -67,7 +67,7 @@ Now, let’s look for the Image and its *OriginalFileName* using a table
 ```swift
 CurrentDirectory="C:\\Users\\Finance01\\AppData\\Local\\Temp\\"| table Image OriginalFileName
 ```
-![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-004-2ca45d30.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-004-2ca45d30.png)
 
 *IonicLarge.exe* is the suspicious file, and *PalitExplorer.exe* is its original Name.
 
@@ -78,9 +78,9 @@ Let’s select the binary.
 Image=”C:\\Users\\Finance01\\AppData\\Local\\Temp\\IonicLarge.exe”
 ```
 
-Now, let’s look at the *DestinationIp* with two connections.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-005-7e691d6e.png)
+Now, let’s look at the *DestinationIp* with two connections.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-005-7e691d6e.png)
 
-We can defang it using CyberChef (<https://gchq.github.io/CyberChef/>)![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-006-b5a0afb5.png)
+We can defang it using CyberChef (<https://gchq.github.io/CyberChef/>)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-006-b5a0afb5.png)
 
 ### The same binary made some change to a registry key. What was the key path?
 
@@ -89,7 +89,7 @@ Event ID 13 records modifications to registry values. Let’s filter according t
 Image=”C:\\Users\\Finance01\\AppData\\Local\\Temp\\IonicLarge.exe” EventCode=13
 ```
 
-We have nine events. Look at the messages; they all work with the same key path: HKLM\SOFTWARE\Policies\Microsoft\Windows Defender.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-007-36499380.png)
+We have nine events. Look at the messages; they all work with the same key path: HKLM\SOFTWARE\Policies\Microsoft\Windows Defender.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-007-36499380.png)
 
 ### Some processes were killed and the associated binaries were deleted. What were the names of the two binaries? (**format: file.xyz,file.xyz**)
 
@@ -105,7 +105,7 @@ taskkill| table CommandLine
 
 The two deleted binaries are:
 
-![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-008-7b46a39c.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-008-7b46a39c.png)
 
 ### The attacker ran several commands within a PowerShell session to change the behaviour of Windows Defender. What was the last command executed in the series of similar commands?
 
@@ -114,13 +114,13 @@ I just searched for PowerShell Windows Defender and got 29 events. Then, I made 
 powershell windows defender| table CommandLine
 ```
 
-![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-009-433d66dd.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-009-433d66dd.png)
 
 ### Based on the previous answer, what were the four IDs set by the attacker? Enter the answer in order of execution. (format: 1st,2nd,3rd,4th)
 
 In the same results from the previous query, we can get the IDs: 2147735503,2147737010,2147737007,2147737394
 
-![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-010-579820a8.png)![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-011-54469e03.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-010-579820a8.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-011-54469e03.png)
 
 ### Another malicious binary was executed on the infected workstation from another AppData location. What was the full path to the binary?
 
@@ -129,7 +129,7 @@ Let’s search for *AppData* in the search and create a table for images without
 *AppData*| dedup Image| table Image
 ```
 
-I got 59 results. *EasyCalc.exe* looked suspicious — and this was our required binary.![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-012-c4459261.png)
+I got 59 results. *EasyCalc.exe* looked suspicious — and this was our required binary.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-012-c4459261.png)
 
 ### What were the DLLs that were loaded from the binary from the previous question? Enter the answers in alphabetical order. (format: file1.dll,file2.dll,file3.dll)
 
@@ -137,7 +137,7 @@ Add the path from the previous question to the search and a *.dll* to the query
 ```ini
 Image=”C:\\Users\\Finance01\\AppData\\Roaming\\EasyCalc\\EasyCalc.exe” .dll
 ```
-![image](/assets/images/posts/new-hire-old-artifacts-tryhackme-writeup/img-013-c8b487b5.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/new-hire-old-artifacts-tryhackme-writeup/img-013-c8b487b5.png)
 
 ### Final Thoughts
 

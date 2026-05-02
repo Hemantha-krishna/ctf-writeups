@@ -7,7 +7,7 @@ tags:
   - cybersecurity
 description: "A Weekend Immersed in Hands-On Vehicle Security"
 canonical_url: "https://medium.com/@hemanthakrishnach/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity-9c021ca6f079"
-image: "/assets/images/posts/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-000-cb7e55f3.jpg"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-000-cb7e55f3.jpg"
 ---
 
 A Weekend Immersed in Hands-On Vehicle Security
@@ -28,7 +28,7 @@ Each platform taught us how modern vehicle systems operate, how vulnerabilities 
 
 ### Getting Hands-On with RAMN — Why This Tiny ECU Testbed Stood Out
 
-For me, RAMN was the highlight of the weekend. Working with such a compact yet powerful testbed helped me understand how ECUs communicate inside modern vehicles. It allowed me to experiment safely, observe real-time effects of certain actions, and better grasp how weaknesses can be identified and resolved. That hands-on experience made the concepts more tangible and truly sparked my interest in automotive cybersecurity.![image](/assets/images/posts/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-000-cb7e55f3.jpg)
+For me, RAMN was the highlight of the weekend. Working with such a compact yet powerful testbed helped me understand how ECUs communicate inside modern vehicles. It allowed me to experiment safely, observe real-time effects of certain actions, and better grasp how weaknesses can be identified and resolved. That hands-on experience made the concepts more tangible and truly sparked my interest in automotive cybersecurity.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-000-cb7e55f3.jpg)
 
 RAMN Device
 
@@ -42,7 +42,7 @@ Throughout the weekend, I connected with like-minded peers who shared the same e
 
 ### Grateful for the HackFesta Community
 
-I am incredibly grateful to the team at Toyota North America and to the mentors who guided us.![image](/assets/images/posts/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-001-a43dd2a6.jpg)
+I am incredibly grateful to the team at Toyota North America and to the mentors who guided us.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/inside-toyota-hackfesta-2025-my-dive-into-automotive-cybersecurity/img-001-a43dd2a6.jpg)
 
 ### Looking Ahead
 

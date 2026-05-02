@@ -9,14 +9,14 @@ tags:
   - ctf
 description: "Intermediate level binary exploitation challenges."
 canonical_url: "https://medium.com/@hemanthakrishnach/tryhackme-pwn101-challenge2-writeup-82a31cf111af"
-image: "/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-000-5563d17a.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-000-5563d17a.png"
 ---
 
 Intermediate level binary exploitation challenges.
 
 ---
 
-Intermediate level binary exploitation challenges.![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-000-5563d17a.png)![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-001-f5ef0620.png)
+Intermediate level binary exploitation challenges.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-000-5563d17a.png)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-001-f5ef0620.png)
 
 Room link: [https://tryhackme.com/room/pwn101](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa1E4QjJxcHZJZXQxSUxLMGd2cVY5TVBOMGltZ3xBQ3Jtc0ttTURpVTdZSlJsOWpBcUFUNTU3bTg0TTVBM0xqOWw1bXZPbzR3X2Y4SkJkTUdBOFhhNW9SQkVmcWFUcnJsbWNMRGhiYkxLcFFnX05SNkZ2MG5FRzdJMTItdXlNZ0lDN2RIdi0zZmsyM3ZRNmdGbkEtUQ&q=https%3A%2F%2Ftryhackme.com%2Froom%2Fpwn101&v=8FEYdpZdftQ)
 
@@ -30,38 +30,38 @@ The service can be reached with:
 ```bash
 nc 10.201.126.158 9002
 ```
-![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-002-747dd866.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-002-747dd866.png)
 
-I also downloaded the provided binary to my Kali VM for local analysis. Tools like **GDB**, **pwntools**, **Cutter**, or **Ghidra** are all useful here. I primarily used GDB and pwntools.![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-003-05a9a8a4.png)
+I also downloaded the provided binary to my Kali VM for local analysis. Tools like **GDB**, **pwntools**, **Cutter**, or **Ghidra** are all useful here. I primarily used GDB and pwntools.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-003-05a9a8a4.png)
 
 Inside gdb, i used *info functions* to look at the functions of the binary.
 ```bash
 info functions
 ```
-![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-004-d06cbba9.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-004-d06cbba9.png)
 
 Now lets examine the dissambly of main to see whats happening
 ```bash
 disass main
 ```
-![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-005-88bff6e6.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-005-88bff6e6.png)
 
 ### Understanding `main`
 
 1. First the main functions calls setup() and banner() to print the banner. then it sets two local variables
 
-![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-006-f5a55fd2.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-006-f5a55fd2.png)
 ```perl
 movl $0xbadf00d,-0x4(%rbp) ; var1 = 0xbadf00dmovl $0xfee1dead,-0x8(%rbp) ; var2 = 0xfee1dead
 ```
 
-This prints![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-007-3bc3f819.png)
+This prints![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-007-3bc3f819.png)
 
-2. A local buffer of **0x70 (112) bytes** is allocated.![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-008-f06134c8.png)
+2. A local buffer of **0x70 (112) bytes** is allocated.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-008-f06134c8.png)
 
-3. User input is read into it with `scanf("%s", buffer) -`no bounds checking!![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-009-2235973b.png)
+3. User input is read into it with `scanf("%s", buffer) -`no bounds checking!![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-009-2235973b.png)
 
-4. After reading input, the program checks:![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-010-519f536c.png)
+4. After reading input, the program checks:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-010-519f536c.png)
 ```perl
 cmpl $0xc0ff33,-0x4(%rbp) ; does var1 == 0xc0ff33?jne failcmpl $0xc0d3,-0x8(%rbp) ; does var2 == 0xc0d3?jne fail
 ```
@@ -116,7 +116,7 @@ from pwn import *# set up pwntools contextcontext.binary=binary="./pwn102-164430
 
 ### Result
 
-![image](/assets/images/posts/tryhackme-pwn101-challenge2-writeup/img-011-347e726b.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/tryhackme-pwn101-challenge2-writeup/img-011-347e726b.png)
 
 Running the exploit:
 

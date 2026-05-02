@@ -8,20 +8,20 @@ tags:
   - writeup
 description: "If you are diving into the world of CTFs (Capture The Flags), you will inevitably run into custom Python encryption scripts. Today, we are…"
 canonical_url: "https://medium.com/@hemanthakrishnach/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough-52830a1e036c"
-image: "/assets/images/posts/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-000-ecbfb61a.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-000-ecbfb61a.png"
 ---
 
 If you are diving into the world of CTFs (Capture The Flags), you will inevitably run into custom Python encryption scripts. Today, we are…
 
 ---
 
-![image](/assets/images/posts/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-000-ecbfb61a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-000-ecbfb61a.png)
 
 If you are diving into the world of CTFs (Capture The Flags), you will inevitably run into custom Python encryption scripts. Today, we are breaking down the **“Cipher’s Secret Message”** room on TryHackMe. We are given an encrypted string and the source code used to create it, and our job is to reverse the logic to retrieve the flag.
 
 ### The Challenge
 
-![image](/assets/images/posts/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-001-4ca8f855.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-001-4ca8f855.png)
 
 We are provided with two key pieces of information:
 
@@ -65,7 +65,7 @@ def decode(ciphertext): return “”.join( # Subtract ‘i’ instead of adding
 
 ### The Result
 
-Running the script produces the following output:![image](/assets/images/posts/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-002-24ac53d5.png)
+Running the script produces the following output:![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/cracking-ciphers-secret-message-on-tryhackme-a-python-walkthrough/img-002-24ac53d5.png)
 
 ### The Final Flag
 

@@ -7,7 +7,7 @@ tags:
   - tryhackme
 description: "Can you escape the Corridor?"
 canonical_url: "https://medium.com/@hemanthakrishnach/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation-57895514ef63"
-image: "/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-000-e46fc86e.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-000-e46fc86e.png"
 ---
 
 Can you escape the Corridor?
@@ -16,7 +16,7 @@ Can you escape the Corridor?
 
 ### Escaping the Corridor — TryHackMe Room Walkthrough
 
-Can you escape the Corridor?![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-000-e46fc86e.png)
+Can you escape the Corridor?![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-000-e46fc86e.png)
 
 Room link: <https://tryhackme.com/room/corridor>
 
@@ -32,15 +32,15 @@ The objective is to uncover website locations you were not expected to access by
 
 ### Step 1: Reconnaissance and Pattern Recognition
 
-As I navigated the site, I noticed the URL structure changed as I entered different “rooms.”![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-001-c3005fa0.png)
+As I navigated the site, I noticed the URL structure changed as I entered different “rooms.”![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-001-c3005fa0.png)
 
-For example, one URL ended in the hash: `8f14e45fceea167a5a36dedd4bea2543`![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-002-ae16f2e9.png)
+For example, one URL ended in the hash: `8f14e45fceea167a5a36dedd4bea2543`![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-002-ae16f2e9.png)
 
 Suspecting this was a hash, I utilized a cracking tool to identify the algorithm and the plaintext value.
 
 - **The Hash:** `8f14e45fceea167a5a36dedd4bea2543`.- **The Algorithm:** The tool identified it as **MD5**.- **The Result:** The hash cracked instantly to the number **7**.
 
-![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-003-5e17d30b.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-003-5e17d30b.png)
 
 ### Step 2: The Logic Gap
 
@@ -54,11 +54,11 @@ My first instinct was to check the next sequential number.
 
 - **Input:** `14`.- **MD5 Hash:** `aab3238922bcc25a6f606eb525ffdc56`.
 
-![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-004-d7eb8f3a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-004-d7eb8f3a.png)
 
 - **Result:** When I navigated to this hash, the server returned a **404 Not Found**.
 
-![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-005-eab65aa2.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-005-eab65aa2.png)
 
 Since moving *forward* (to 14) didn’t work, I decided to move *backward*. In array indexing and computer science, counting often starts at zero.
 
@@ -66,7 +66,7 @@ I used an MD5 encrypter to generate the hash for the number **0**:
 
 - **Input:** `0`.- **MD5 Hash:** `cfcd208495d565ef66e7dff9f98764da`.
 
-![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-006-eed49f5f.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-006-eed49f5f.png)
 
 I manually constructed the malicious URL by appending this new hash to the base IP address:
 
@@ -74,6 +74,6 @@ I manually constructed the malicious URL by appending this new hash to the base 
 
 ### Conclusion
 
-The exploit was successful. Navigating to the hash for room “0” bypassed the restricted user interface and revealed the hidden page containing the flag.![image](/assets/images/posts/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-007-fe0c15b5.png)
+The exploit was successful. Navigating to the hash for room “0” bypassed the restricted user interface and revealed the hidden page containing the flag.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/escaping-the-corridor-tryhackme-a-guide-to-idor-and-md5-obfuscation/img-007-fe0c15b5.png)
 
 #### Thank you for reading my write-up. I hope you found it helpful.

@@ -8,16 +8,16 @@ tags:
   - writeup
 description: "A popular juice shop has been breached! Analyze the logs to see what had happened…"
 canonical_url: "https://medium.com/@hemanthakrishnach/juicy-details-tryhackme-writeup-66f454c2b34b"
-image: "/assets/images/posts/juicy-details-tryhackme-writeup/img-000-eb4c3aae.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-000-eb4c3aae.png"
 ---
 
 A popular juice shop has been breached! Analyze the logs to see what had happened…
 
 ---
 
-A popular juice shop has been breached! Analyze the logs to see what had happened…![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-000-eb4c3aae.png)
+A popular juice shop has been breached! Analyze the logs to see what had happened…![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-000-eb4c3aae.png)
 
-Room: <https://tryhackme.com/room/juicydetails>![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-001-07c79e92.png)
+Room: <https://tryhackme.com/room/juicydetails>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-001-07c79e92.png)
 
 ### **Introduction**
 
@@ -39,27 +39,27 @@ Look carefully at:
 
 ### What tools did the attacker use? (Order by the occurrence in the log)
 
-Let’s skim through the logs from a high level. At the start, we see that the attacker used the nmap scripting engine![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-002-dd33c5d1.png)
+Let’s skim through the logs from a high level. At the start, we see that the attacker used the nmap scripting engine![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-002-dd33c5d1.png)
 
-If we scroll a bit, we can see that Hydra was used to brute-force the login page.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-003-3ddfeacf.png)
+If we scroll a bit, we can see that Hydra was used to brute-force the login page.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-003-3ddfeacf.png)
 
-Later, we find that the attacker used SQLmap to discover SQL injection vulnerabilities.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-004-688804ed.png)
+Later, we find that the attacker used SQLmap to discover SQL injection vulnerabilities.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-004-688804ed.png)
 
-In the end, we can find a curl command. `Curl` (short for **Client URL**) is a **command-line tool** that sends HTTP requests and interacts. The attacker succeeded in the SQL injection attack as the curl command returned an HTTP 200 (success) code.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-005-ea84d0f3.png)
+In the end, we can find a curl command. `Curl` (short for **Client URL**) is a **command-line tool** that sends HTTP requests and interacts. The attacker succeeded in the SQL injection attack as the curl command returned an HTTP 200 (success) code.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-005-ea84d0f3.png)
 
 Then, we also see the use of feroxbuster. `feroxbuster` is a **directory and file brute-forcing tool** used to discover hidden paths (like `/admin`, `/backup`, `/ftp`, etc.) on web servers.
 
 ### What endpoint was vulnerable to a brute-force attack?
 
-If we look at the previous Hydra attacks, we can get the full path of the vulnerable endpoint.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-006-71a9da53.png)
+If we look at the previous Hydra attacks, we can get the full path of the vulnerable endpoint.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-006-71a9da53.png)
 
 ### What endpoint was vulnerable to SQL injection?
 
-Similarly, by looking at the SQLmap logs, we can find the vulnerable endpoint.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-007-70722527.png)
+Similarly, by looking at the SQLmap logs, we can find the vulnerable endpoint.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-007-70722527.png)
 
 ### What parameter was used for the SQL injection?
 
-Look at the parameter after the *search?*![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-008-ed1ad4d5.png)
+Look at the parameter after the *search?*![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-008-ed1ad4d5.png)
 
 ### What endpoint did the attacker try to use to retrieve files? (Include the /)
 
@@ -77,15 +77,15 @@ Look carefully at:
 
 Hint: Where can customers usually comment on a shopping website?
 
-During the initial skimming of the logs, I found some product reviews. These must be where the attacker got the email addresses from.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-009-0713905d.png)
+During the initial skimming of the logs, I found some product reviews. These must be where the attacker got the email addresses from.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-009-0713905d.png)
 
 ### Was their brute-force attack successful? If so, what is the timestamp of the successful login? (Yay/Nay, 11/Apr/2021:09:xx:xx +0000)
 
-Let’s look at the Hydra logs. I found a single HTTP 200 return code indicating a successful login.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-010-784a3691.png)
+Let’s look at the Hydra logs. I found a single HTTP 200 return code indicating a successful login.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-010-784a3691.png)
 
 ### What user information was the attacker able to retrieve from the endpoint vulnerable to SQL injection?
 
-We can find a query for email and password at the end of the SQL queries.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-011-a0508d11.png)
+We can find a query for email and password at the end of the SQL queries.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-011-a0508d11.png)
 
 ### What files did they try to download from the vulnerable endpoint? (endpoint from the previous task, question #5)
 
@@ -93,15 +93,15 @@ Previously, we saw that two .bak files were exported.
 
 ### What service and account name were used to retrieve files from the previous question? (service, username)
 
-We already know that the service used is FTP. Let’s look at the vsftpd.log for the username.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-012-bd41144d.png)
+We already know that the service used is FTP. Let’s look at the vsftpd.log for the username.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-012-bd41144d.png)
 
 Here, we can see that the attacker is logged in as anon — anonymous
 
 ### What service and username were used to gain shell access to the server? (service, username)
 
-Looking at the auth.log, I saw many failed password attempts through brute forcing. From this, I deduced that the username is *www-data* and the service is ssh.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-013-6ebf05d3.png)
+Looking at the auth.log, I saw many failed password attempts through brute forcing. From this, I deduced that the username is *www-data* and the service is ssh.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-013-6ebf05d3.png)
 
-After scrolling a bit, I saw the successful login from the attacker.![image](/assets/images/posts/juicy-details-tryhackme-writeup/img-014-d3a21c21.png)
+After scrolling a bit, I saw the successful login from the attacker.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/juicy-details-tryhackme-writeup/img-014-d3a21c21.png)
 
 ### Final Thoughts
 

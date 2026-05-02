@@ -4,11 +4,11 @@ date: 2026-04-27 00:00:00 +0000
 categories: [Certifications, Penetration Testing]
 tags: [pnpt, tcm-security, penetration-testing, certification, review, exam]
 image:
-  path: /assets/images/posts/pnpt-badge.png
+  path: https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/pnpt-badge.png
   alt: TCM Security PNPT Certified Badge
 ---
 
-![PNPT Certified Badge](/assets/images/posts/pnpt-badge.png){: width="100%"}
+![PNPT Certified Badge](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/pnpt-badge.png){: width="100%"}
 
 After grinding through the courses, learning from a failed first attempt at the PJPT, and spending several intense days inside the exam environment, I can finally say I'm a certified **Practical Network Penetration Tester (PNPT)**. Here's my honest breakdown of the experience - the mistakes, the wins, and every tip that would have saved me time.
 

@@ -7,7 +7,7 @@ tags:
   - certification
 description: "After a long journey, I finally passed the CompTIA Security+ (SY0–701) exam with a 785 out of 900 score. It wasn’t a straight path, and I…"
 canonical_url: "https://medium.com/@hemanthakrishnach/how-i-passed-the-comptia-security-sy0-701-ccaf84f76909"
-image: "/assets/images/posts/how-i-passed-the-comptia-security-sy0-701/img-000-8c48d9ce.jpg"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/how-i-passed-the-comptia-security-sy0-701/img-000-8c48d9ce.jpg"
 ---
 
 After a long journey, I finally passed the CompTIA Security+ (SY0–701) exam with a 785 out of 900 score. It wasn’t a straight path, and I…
@@ -16,7 +16,7 @@ After a long journey, I finally passed the CompTIA Security+ (SY0–701) exam wi
 
 ### How I passed the CompTIA Security+ SY0–701
 
-![image](/assets/images/posts/how-i-passed-the-comptia-security-sy0-701/img-000-8c48d9ce.jpg)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/how-i-passed-the-comptia-security-sy0-701/img-000-8c48d9ce.jpg)
 
 After a long journey, I finally passed the CompTIA Security+ (SY0–701) exam with a 785 out of 900 score. It wasn’t a straight path, and I thought I’d share my experience with anyone else who might be in the same boat, especially if you’re juggling studies, internships, and life.
 

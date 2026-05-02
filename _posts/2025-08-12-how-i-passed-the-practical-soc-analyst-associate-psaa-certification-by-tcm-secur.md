@@ -8,14 +8,14 @@ tags:
   - certification
 description: "If you’re targeting a blue team career, you’ve likely heard of TCM Security’s Practical SOC Analyst Associate (PSAA). This isn’t your…"
 canonical_url: "https://medium.com/@hemanthakrishnach/how-i-passed-the-practical-soc-analyst-associate-psaa-certification-by-tcm-security-1573369bcc2e"
-image: "/assets/images/posts/how-i-passed-the-practical-soc-analyst-associate-psaa-certification-by-tcm-secur/img-000-0a78c83e.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/how-i-passed-the-practical-soc-analyst-associate-psaa-certification-by-tcm-secur/img-000-0a78c83e.png"
 ---
 
 If you’re targeting a blue team career, you’ve likely heard of TCM Security’s Practical SOC Analyst Associate (PSAA). This isn’t your…
 
 ---
 
-![image](/assets/images/posts/how-i-passed-the-practical-soc-analyst-associate-psaa-certification-by-tcm-secur/img-000-0a78c83e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/how-i-passed-the-practical-soc-analyst-associate-psaa-certification-by-tcm-secur/img-000-0a78c83e.png)
 
 If you’re targeting a blue team career, you’ve likely heard of TCM Security’s Practical SOC Analyst Associate (PSAA). This isn’t your standard multiple-choice exam. It puts you in **realistic SOC scenarios** where you need to investigate incidents, analyze evidence, and write a professional report just like a real SOC analyst.
 

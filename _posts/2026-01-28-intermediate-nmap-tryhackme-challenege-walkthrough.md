@@ -8,7 +8,7 @@ tags:
   - writeup
 description: "Can you combine your great nmap skills with other tools to log in to this machine?"
 canonical_url: "https://medium.com/@hemanthakrishnach/intermediate-nmap-tryhackme-challenege-walkthrough-8af235fe6851"
-image: "/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-000-4428915d.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-000-4428915d.png"
 ---
 
 Can you combine your great nmap skills with other tools to log in to this machine?
@@ -19,7 +19,7 @@ Can you combine your great nmap skills with other tools to log in to this machin
 
 Room Link: <https://tryhackme.com/room/intermediatenmap>
 
-In the world of Capture The Flag (CTF) challenges, we often expect complex buffer overflows or obscure web vulnerabilities. But sometimes, the “hack” is simply about paying attention to what the server is screaming at you.![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-000-4428915d.png)
+In the world of Capture The Flag (CTF) challenges, we often expect complex buffer overflows or obscure web vulnerabilities. But sometimes, the “hack” is simply about paying attention to what the server is screaming at you.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-000-4428915d.png)
 
 ### Phase 1: The Initial Recon
 
@@ -32,9 +32,9 @@ The scan returned results in just over 15 minutes (941 seconds). The host was up
 
 - **22/tcp:** OpenSSH 8.2p1 (Standard SSH)- **2222/tcp:** Another instance of OpenSSH 8.2p1- **31337/tcp:** An open port labeled “Elite?”
 
-![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-001-2207f64c.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-001-2207f64c.png)
 
-While SSH is standard, port **31337** (hacker slang for “Elite”) is always a red flag that screams “Look at me!”![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-002-28e82a3d.png)
+While SSH is standard, port **31337** (hacker slang for “Elite”) is always a red flag that screams “Look at me!”![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-002-28e82a3d.png)
 
 ### Phase 2: Reading the “Garbage”
 
@@ -55,7 +55,7 @@ The page rendered plain text confirming exactly what the Nmap scan hinted at:
 
 **“In case I forget user:pass ubuntu: Dafdas!!/strong”**.
 
-We now had a username (`ubuntu`) and a password (`Dafdas!!/strong`)![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-003-1d1cc203.png)
+We now had a username (`ubuntu`) and a password (`Dafdas!!/strong`)![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-003-1d1cc203.png)
 
 ### Phase 4: Gaining Access
 
@@ -63,7 +63,7 @@ With credentials in hand, I turned back to the standard SSH port identified in t
 ```kotlin
 ssh ubuntu@<MACHINE_IP>
 ```
-![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-004-4492b823.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-004-4492b823.png)
 
 After an initial stumble with the password entry (likely a typo on my part), the second attempt went through. The terminal responded with the golden text: `Welcome to Ubuntu 20.04.3 LTS.`
 
@@ -76,7 +76,7 @@ Once inside the shell, standard enumeration began. A quick `ls -la` showed we we
 cd /home/userls
 ```
 
-There it was: **flag.txt**.![image](/assets/images/posts/intermediate-nmap-tryhackme-challenege-walkthrough/img-005-f41b3391.png)
+There it was: **flag.txt**.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/intermediate-nmap-tryhackme-challenege-walkthrough/img-005-f41b3391.png)
 
 A final `cat flag.txt` printed the victory string to the screen, marking the end of the challenge.
 

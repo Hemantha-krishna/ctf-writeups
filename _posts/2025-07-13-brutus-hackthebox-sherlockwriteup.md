@@ -9,14 +9,14 @@ tags:
   - sherlock
 description: "Box Link: https://app.hackthebox.com/sherlocks/Brutus/"
 canonical_url: "https://medium.com/@hemanthakrishnach/brutus-hackthebox-sherlockwriteup-292e2d6b4d36"
-image: "/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-000-20b40562.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-000-20b40562.png"
 ---
 
 Box Link: https://app.hackthebox.com/sherlocks/Brutus/
 
 ---
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-000-20b40562.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-000-20b40562.png)
 
 Box Link: [https://app.hackthebox.com/sherlocks/Brutus/](https://app.hackthebox.com/sherlocks/Brutus/play)
 
@@ -37,7 +37,7 @@ We’ll search for the string *“Failed”*
 grep Failed auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-001-6403d73d.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-001-6403d73d.png)
 
 The output is a flood of entries, but one thing stands out: they all originate from the same IP address. The attacker’s IP address is clear.
 
@@ -48,7 +48,7 @@ I looked around and saw a log saying “Accepted Password …”. We’ll grep 
 grep Accepted auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-002-94687b92.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-002-94687b92.png)
 
 The command yields a few results, but only one is from our attacker’s IP. Another login from 203.101.190.9 is present but can be ignored as it’s not our primary threat actor.
 
@@ -67,7 +67,7 @@ I searched for the word *password* in the logs:
 grep password auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-003-ea4abe17.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-003-ea4abe17.png)
 
 After the brute force stops, we can see a login with the root. This is the attacker’s manual login. We do not have the year. So, let’s look at the wtmp artifact mentioned in the question. We can either use *utmpdump* or *last* to look at the file. Neither worked in my Kali Linux VM for some reason, so I switched to an Ubuntu VM.
 
@@ -80,7 +80,7 @@ TZ=utc last -f wtmp -F
 
 - `TZ=utc`: Temporarily sets the timezone to **UTC** for this command only.- `last`: Shows a listing of **the last logins** of users on the system.- `-f wtmp`: Tells `last` to read from the `wtmp` **file**, which logs logins and logouts (default is usually `/var/log/wtmp`).- `-F`: Displays **full login and logout times** (including date and time, not just day/time).
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-004-4c19b3ac.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-004-4c19b3ac.png)
 
 The output of the *last* gives us a clean, chronological list of user sessions. We can see the attacker’s root login. Notice the timestamp 06:32:45. Our *auth.log* showed an authentication time of 06:32:44. That one-second gap is exactly what the question highlights, and *wtmp* gives us the precise moment the attacker’s terminal came to life.
 
@@ -91,7 +91,7 @@ Every SSH connection is assigned a unique session number, which is invaluable fo
 grep session auth.log | grep 06:32
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-005-43b88889.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-005-43b88889.png)
 
 ### The attacker added a new user as part of their persistence strategy on the server and gave this new user account higher privileges. What is the name of this account?
 
@@ -102,13 +102,13 @@ We saw this user while searching for accepted logins. The username was *cyberjun
 grep cyberjunkie auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-006-e235226a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-006-e235226a.png)
 
 The attacker didn’t just create a new user named *cyberjunkie*; they immediately added this user to the *sudo* group, granting it administrative privileges. This is a classic privilege escalation and persistence maneuver.
 
 ### What is the MITRE ATT&CK sub-technique ID used for persistence by creating a new account?
 
-A quick search on the MITRE ATT&CK website for “Create Account” leads us to the relevant technique. Creating a local account for persistence falls under **T1136: Create Account**. More specifically, since it’s a standard user on the system, it maps to the sub-technique **T1136.001: Local Account**.![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-007-f596309a.png)
+A quick search on the MITRE ATT&CK website for “Create Account” leads us to the relevant technique. Creating a local account for persistence falls under **T1136: Create Account**. More specifically, since it’s a standard user on the system, it maps to the sub-technique **T1136.001: Local Account**.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-007-f596309a.png)
 
 ### What time did the attacker’s first SSH session end according to auth.log?
 
@@ -116,13 +116,13 @@ The *sshd* process that handled the initial login has a unique Process ID (*PID*
 
 Our previous analysis shows that the *sshd* process that accepted the password was *sshd[2491]*. We can grep for this specific *PID* to find all related log entries.
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-008-123d2623.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-008-123d2623.png)
 
 ```bash
 grep 2491 auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-009-cecb0bca.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-009-cecb0bca.png)
 
 The final log entry clearly states when the session was closed.
 
@@ -133,7 +133,7 @@ After creating the *cyberjunkie* account, the attacker logged in and used their 
 grep cyberjunkie auth.log
 ```
 
-![image](/assets/images/posts/brutus-hackthebox-sherlockwriteup/img-010-6ad8e456.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/brutus-hackthebox-sherlockwriteup/img-010-6ad8e456.png)
 
 The attacker used curl to download linper.sh, a well-known Linux privilege escalation enumeration script. This was likely their next step to perform reconnaissance and find further ways to exploit the system.
 

