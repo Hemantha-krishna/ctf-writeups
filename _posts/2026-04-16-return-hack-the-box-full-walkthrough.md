@@ -6,11 +6,10 @@ categories: [cybersecurity]
 tags:
   - writeup
 description: "Room link: https://app.hackthebox.com/machines/Return"
-canonical_url: "https://medium.com/@hemanthakrishnach/return-hack-the-box-full-walkthrough-faeb59da8833"
+
 image: "https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/return-hack-the-box-full-walkthrough/img-000-85946292.png"
 ---
 
-Room link: https://app.hackthebox.com/machines/Return
 
 ---
 
