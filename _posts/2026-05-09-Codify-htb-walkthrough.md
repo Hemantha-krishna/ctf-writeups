@@ -10,10 +10,7 @@ description: "Room link: https://app.hackthebox.com/machines/Codify"
 image: "https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/avatars/57b977ea744af01a5454c8643a850e59.png"
 ---
 
-# HackTheBox: Codify - Full Walkthrough
 
-**Difficulty:** Easy  
-**OS:** Linux (Ubuntu 22.04)  
 
 ---
 
