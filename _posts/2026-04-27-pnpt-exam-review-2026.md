@@ -10,7 +10,11 @@ image:
 
 ![PNPT Certified Badge](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/pnpt-badge.png){: width="100%"}
 
-After grinding through the courses, learning from a failed first attempt at the PJPT, and spending several intense days inside the exam environment, I can finally say I'm a certified **Practical Network Penetration Tester (PNPT)**. Here's my honest breakdown of the experience - the mistakes, the wins, and every tip that would have saved me time.
+After grinding through the courses, learning from a failed first attempt at the PJPT, and spending several intense days inside the exam environment, I can finally say I'm a certified **Practical Network Penetration Tester (PNPT)**.
+
+ ![062188af3546b39fe485667d6b968dc5135cc2685be9922e54762e62a1e82f9d](https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/posts/%24%7Bmdname%7D/062188af3546b39fe485667d6b968dc5135cc2685be9922e54762e62a1e82f9d.png)  
+ 
+Here's my honest breakdown of the experience - the mistakes, the wins, and every tip that would have saved me time.
 
 ---
 
@@ -18,7 +22,7 @@ After grinding through the courses, learning from a failed first attempt at the 
 
 > **Turn off your personal VPN before connecting to the exam environment.**
 
-I had mine running on Windows the entire time. I connected to the exam VPN from Kali Linux — and then couldn't ping a single machine. I restarted multiple times, went through various troubleshooting steps, and wasted two full hours before I finally spotted the culprit.
+I had mine running on Windows the entire time. I connected to the exam VPN from Kali Linux- and then couldn't ping a single machine. I restarted multiple times, went through various troubleshooting steps, and wasted two full hours before I finally spotted the culprit.
 
 Two hours in a five-day exam is significant. Don't repeat this mistake.
 
@@ -50,7 +54,7 @@ The TCM Security course library is excellent, but not everything is equally rele
 
 These priv esc courses are excellent and will sharpen your CTF skills, but they aren't the focus of the PNPT exam itself.
 
-The **External Pentest Playbook** in particular is pure gold. I made the mistake of watching it passively the first time. During the exam, I rewatched relevant sections multiple times — and it consistently pointed me in the right direction. Revisiting the material mid-exam might feel like you're losing precious time, but you're not. It's the opposite.
+The **External Pentest Playbook** in particular is pure gold. I made the mistake of watching it passively the first time. During the exam, I rewatched relevant sections multiple times - and it consistently pointed me in the right direction. Revisiting the material mid-exam might feel like you're losing precious time, but you're not. It's the opposite.
 
 > All the required concepts are in the courses. There is nothing you need to know outside of them. Every time I was stuck, the answer was in the material.
 
@@ -66,7 +70,7 @@ The internal segment of the exam is similar to the PJPT but a step up in difficu
 
 ## The External Phase Takes Time
 
-I spent the better part of the first two days on the external portion alone. Don't rush it — thorough enumeration here sets the foundation for everything that follows. If you hit a wall, resist the urge to dive into rabbit holes.
+I spent the better part of the first two days on the external portion alone. Don't rush it- thorough enumeration here sets the foundation for everything that follows. If you hit a wall, resist the urge to dive into rabbit holes.
 
 **Mindset shift that consistently helped me:**
 
@@ -78,22 +82,22 @@ Always remember: **enumerate, enumerate, enumerate.**
 
 ---
 
-## Screenshot Everything — And Record Your Screen
+## Screenshot Everything- And Record Your Screen
 
-Take a screenshot at every single step, even the ones that feel minor or obvious in the moment. During the PJPT, I missed one screenshot that ended up not mattering — but it was a stressful realization during report writing.
+Take a screenshot at every single step, even the ones that feel minor or obvious in the moment. During the PJPT, I missed one screenshot that ended up not mattering- but it was a stressful realization during report writing.
 
 For the PNPT, I recorded the entire exam session using **OBS Studio** so I could grab any frame I'd missed. I didn't end up needing the footage, but having that safety net removed a lot of anxiety.
 
-- Screenshot every step — assume nothing is too minor
+- Screenshot every step- assume nothing is too minor
 - Record the full session with OBS Studio as a backup
 - Keep all credentials in a dedicated `.txt` file, updated in real time
-- Write down every command and its output as you go — don't rely on terminal history
+- Write down every command and its output as you go- don't rely on terminal history
 
 ---
 
 ## On Methodology and Finding Multiple Attack Paths
 
-I compromised the domain before the five-day limit, and — just as Heath Adams recommends in the course — I went back and ran the penetration test again from scratch. Doing so revealed a **completely different attack path** I hadn't found the first time.
+I compromised the domain before the five-day limit, and- just as Heath Adams recommends in the course- I went back and ran the penetration test again from scratch. Doing so revealed a **completely different attack path** I hadn't found the first time.
 
 This matters both for completeness and for writing a more thorough report. The exam is fundamentally a test of your methodology, not just your technical knowledge. My approach to penetration testing measurably improved by going through this process.
 
@@ -101,9 +105,9 @@ This matters both for completeness and for writing a more thorough report. The e
 
 ## Notes, Report, and the Debrief
 
-I finished my report in about two days, though it felt like I barely managed it. Use the [TCM Security Sample Pentest Report](https://github.com/hmaverickadams/TCM-Security-Sample-Pentest-Report) as a reference — it's well structured and covers everything the exam expects.
+I finished my report in about two days, though it felt like I barely managed it. Use the [TCM Security Sample Pentest Report](https://github.com/hmaverickadams/TCM-Security-Sample-Pentest-Report) as a reference- it's well structured and covers everything the exam expects.
 
-About a week after submitting the report, I received a scheduling link for the debrief. The debrief is a **15-minute walkthrough** of your attack chain and remediation recommendations. You can use a simple slide deck or walk through your report directly — either format works.
+About a week after submitting the report, I received a scheduling link for the debrief. The debrief is a **15-minute walkthrough** of your attack chain and remediation recommendations. You can use a simple slide deck or walk through your report directly- either format works.
 
 Be ready to explain not just *what* you did, but *why*, and what the client should do to fix it.
 
@@ -111,12 +115,12 @@ Be ready to explain not just *what* you did, but *why*, and what the client shou
 
 ## General Tips Worth Repeating
 
-- Take breaks — a rested brain solves problems a tired one can't see
-- Don't anchor too long on any single issue — note it, set it aside, come back later
+- Take breaks- a rested brain solves problems a tired one can't see
+- Don't anchor too long on any single issue- note it, set it aside, come back later
 - Don't spend too much time on one thing; move on and revisit if you find nothing else
-- Take detailed notes during the course with screenshots and full commands — you'll reference them during the exam
-- Having a second attempt available genuinely reduces exam stress — use that mental relief to perform better on your first try
-- Read other PNPT blogs before you sit the exam — the community's collective experience is valuable preparation
+- Take detailed notes during the course with screenshots and full commands- you'll reference them during the exam
+- Having a second attempt available genuinely reduces exam stress- use that mental relief to perform better on your first try
+- Read other PNPT blogs before you sit the exam- the community's collective experience is valuable preparation
 
 ---
 
@@ -124,7 +128,7 @@ Be ready to explain not just *what* you did, but *why*, and what the client shou
 
 **Absolutely.**
 
-This is one of the few certifications that genuinely makes you feel like you're conducting a real engagement from start to finish. You're not memorizing answers — you're hacking a real simulated company, writing a professional report, and defending it in a debrief.
+This is one of the few certifications that genuinely makes you feel like you're conducting a real engagement from start to finish. You're not memorizing answers- you're hacking a real simulated company, writing a professional report, and defending it in a debrief.
 
 The exam tests how solid your methodology is. Mine actually improved after taking it.
 
@@ -134,10 +138,10 @@ Thank you to Heath Adams and the entire TCM Security team for building something
 
 ## References
 
-- [PNPT Certification — TCM Security](https://certifications.tcm-sec.com/pnpt/)
+- [PNPT Certification- TCM Security](https://certifications.tcm-sec.com/pnpt/)
 - [TCM Security Sample Pentest Report Template](https://github.com/hmaverickadams/TCM-Security-Sample-Pentest-Report)
 
 ---
 
-*Feel free to reach out — always happy to connect with others on the same path.*
+*Feel free to reach out- always happy to connect with others on the same path.*
 
