@@ -4,7 +4,7 @@ title: "Hacking AI Is the New Pentesting: My Honest PAPA Exam Review"
 date: 2026-11-15 12:00:00 -0600
 categories: [Certifications, Penetration Testing]
 tags: [papa, tcm-security, ai-security, llm, prompt-injection, penetration-testing, certification, review, exam]
-description: "My honest review of the TCM Security PAPA (Practical AI Pentest Associate) exam: the courses, the lab security level mistake I made, exam-day experience, report writing, and tips to pass."
+description: "My review of the TCM Security PAPA (Practical AI Pentest Associate) certification: the courses, the lab security level mistake I made, exam-day experience, report writing, and tips to pass."
 image:
   path: https://raw.githubusercontent.com/Hemantha-krishna/ctf-images/main/posts/%24%7Bmdname%7D/ca9572abff1ab0932a931228f5e0206e13be597ecfbf47ab9c10282fb67acbcd.png
   alt: TCM Security PAPA Certified Badge
