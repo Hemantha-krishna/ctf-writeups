@@ -39,7 +39,7 @@ The voucher includes two courses: **AI 100: Fundamentals** and **AI Hacking 101*
 
 I skipped AI 100 because I already knew the basics of AI, such as neural networks, transformer architecture and running local LLMs. If you are new to how LLMs work, don't skip it.
 
-**AI Hacking 101** was very good, and it is the course that matters most for the exam. It covers:
+**AI Hacking 101** was excellent and was the course I focused on most during my preparation.
 
 - Prompt injection and jailbreaking
 - Sensitive information disclosure and data exfiltration (for example, through RAG)
@@ -59,7 +59,7 @@ I skipped AI 100 because I already knew the basics of AI, such as neural network
 
 When you set up the lab's AI at the start of the course, you choose a security level from **1 to 5**. I set it to 1 and forgot about it. At level 1, almost every attack technique works on the first try, so practice feels easy.
 
-Level 5 is a different story. It has more guardrails and actively blocks malicious prompts and inputs. That is what forces you to get creative with your payloads.
+Level 5 has stronger guardrails designed to block malicious prompts and inputs. Looking back, practising at that level would have been a better way to challenge myself and prepare for attacks that don't work on the first attempt.
 
 My advice: once a technique works at level 1, turn the dial up and try it again at levels 3, 4 and 5. Learning to get around the guardrails is where the real skill is.
 
@@ -73,7 +73,9 @@ In TCM's Active Directory exams like the [PJPT]({% post_url 2026-02-10-pjpt-exam
 
 So I kept attacking until the very end of the 48 hours. I followed the course methodology exactly and tried every attack it teaches, one after another, against the target.
 
-I also learned more during the exam than during the course. The exam didn't just test what I knew; it completed and added to what the course taught me.
+After that, I documented my findings, submitted my report, and successfully passed!
+
+The AI Hacking 101 course gave me a solid foundation. The exam pushed me to experiment, troubleshoot failed attacks, and apply what I'd learned independently.
 
 ---
 
